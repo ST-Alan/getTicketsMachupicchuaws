@@ -1,0 +1,37 @@
+// tickets-plugin-mp.ts
+import { Logger, OnModuleInit } from '@nestjs/common';
+import axios from 'axios';
+import { TicketsPlugin } from 'src/tickets/domain/interface';
+
+
+export class TicketsPluginsMP implements TicketsPlugin, OnModuleInit  {
+  private readonly logger = new Logger(TicketsPluginsMP.name);
+
+  constructor(
+    private readonly user: string,
+    private readonly service: string,
+    private readonly format: string,
+    private readonly baseUrl = 'https://camino-inca.com/partner/api',
+  ) {}
+
+  onModuleInit() {
+    if (!this.user || !this.service || !this.format) {
+      this.logger.warn(
+        '⚠️ CAMINO_INCA_USER, CAMINO_INCA_SERVICE o CAMINO_INCA_FORMAT no están definidas en el entorno. --> backend\src\tickets\infrastructure\plugins\TicketsPluginsMP.plugins.ts',
+      );
+    } else {
+      this.logger.log('✅ TicketsPluginsMP configurado correctamente.');
+    }
+  }
+
+  async fetchTickets() {
+    const url = `${this.baseUrl}?user=${this.user}&service=${this.service}&format=${this.format}`;
+    try {
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      this.logger.error('❌ Error fetching tickets', error.stack);
+      throw new Error('Failed to fetch tickets from MachuPicchu API');
+    }
+  }
+}
