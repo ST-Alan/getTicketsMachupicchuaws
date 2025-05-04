@@ -21,10 +21,11 @@ describe('TicketsPluginsCIDD', () => {
     expect(plugin).toBeDefined();
   });
 
-  it('should warn if env vars are missing', () => {
+  it('should warn if env vars are missing', function (this: void) {
     const logger = new Logger('TicketsPluginsCIDD');
     const plugin = new TicketsPluginsCIDD('', '', '');
     plugin.onModuleInit();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(logger.warn).toHaveBeenCalled();
   });
 
