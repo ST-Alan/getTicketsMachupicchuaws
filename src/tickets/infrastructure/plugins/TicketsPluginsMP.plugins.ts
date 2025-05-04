@@ -31,11 +31,7 @@ export class TicketsPluginsMP implements TicketsPlugin, OnModuleInit  {
       if (!Array.isArray(response.data)) {
               throw new Error('Invalid response format');
             }
-      return response.data.map(ticket => ({
-        date: ticket.date,
-        service: ticket.service,
-        spaces: ticket.spaces,
-      })) as TicketAvailability[];
+      return response.data as TicketAvailability[];
     } catch (error) {
       this.logger.error('❌ Error fetching tickets', error.stack);
       throw new Error('Failed to fetch tickets from MachuPicchu API');
