@@ -1,10 +1,12 @@
 // tickets-plugin-mp.ts
 import { Logger, OnModuleInit } from '@nestjs/common';
 import axios from 'axios';
-import { TicketAvailability, TicketsPlugin } from 'src/tickets/domain/interface';
+import {
+  TicketAvailability,
+  TicketsPlugin,
+} from 'src/tickets/domain/interface';
 
-
-export class TicketsPluginsMP implements TicketsPlugin, OnModuleInit  {
+export class TicketsPluginsMP implements TicketsPlugin, OnModuleInit {
   private readonly logger = new Logger(TicketsPluginsMP.name);
 
   constructor(
@@ -29,16 +31,16 @@ export class TicketsPluginsMP implements TicketsPlugin, OnModuleInit  {
     try {
       const response = await axios.get(url);
       if (!Array.isArray(response.data)) {
-              throw new Error('Invalid response format');
-            }
+        throw new Error('Invalid response format');
+      }
       return response.data as TicketAvailability[];
     } catch (error: unknown) {
-        if (error instanceof Error) {
-          this.logger.error('❌ Error fetching tickets', error.stack);
-        } else {
-          this.logger.error('❌ Error fetching tickets', String(error));
-        }
-        throw new Error('Failed to fetch tickets from Camino Inca Dos Días API');
+      if (error instanceof Error) {
+        this.logger.error('❌ Error fetching tickets', error.stack);
+      } else {
+        this.logger.error('❌ Error fetching tickets', String(error));
       }
+      throw new Error('Failed to fetch tickets from Camino Inca Dos Días API');
+    }
   }
 }

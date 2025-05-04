@@ -5,6 +5,5 @@ export interface TicketAvailability {
 }
 
 export interface TicketsPlugin {
-    fetchTickets(): Promise<TicketAvailability[]>;
-  }
-  
+  fetchTickets(): Promise<TicketAvailability[]>;
+}

@@ -2,12 +2,13 @@ import { Logger } from '@nestjs/common';
 import axios from 'axios';
 import { TicketsPluginsCIDD } from 'src/tickets/infrastructure/plugins';
 
-// Mock de axios
+// Mocks
 jest.mock('axios');
 
-// Mock del Logger de @nestjs/common
+// Crear el mock de Logger con los tipos adecuados
 jest.mock('@nestjs/common', () => {
-  const actual = jest.requireActual('@nestjs/common');
+  const actual =
+    jest.requireActual<typeof import('@nestjs/common')>('@nestjs/common');
   return {
     ...actual,
     Logger: jest.fn().mockImplementation(() => ({
@@ -49,9 +50,7 @@ describe('TicketsPluginsCIDD', () => {
 
   it('should return ticket data if API returns array', async () => {
     const plugin = new TicketsPluginsCIDD(user, service, format);
-    const mockData = [
-      { date: '2025-05-04', service: 'test', spaces: 10 },
-    ];
+    const mockData = [{ date: '2025-05-04', service: 'test', spaces: 10 }];
 
     (axios.get as jest.Mock).mockResolvedValue({ data: mockData });
 

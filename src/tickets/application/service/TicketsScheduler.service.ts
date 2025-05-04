@@ -1,18 +1,18 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { Cron } from "@nestjs/schedule";
-import { TicketsService } from "./Tickets.service";
+import { Injectable, Logger } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
+import { TicketsService } from './Tickets.service';
 
 @Injectable()
 export class TicketsSchedulerService {
   private readonly logger = new Logger(TicketsSchedulerService.name);
 
-  constructor(
-    private readonly ticketsService: TicketsService,
-  ) {}
+  constructor(private readonly ticketsService: TicketsService) {}
 
   @Cron('*/15 * * * *')
   async handleCron(): Promise<void> {
-    this.logger.log('🕒 Iniciando tarea programada para sincronizar disponibilidad');
+    this.logger.log(
+      '🕒 Iniciando tarea programada para sincronizar disponibilidad',
+    );
 
     try {
       await this.ticketsService.getAvailableTicketsMP();
@@ -23,7 +23,7 @@ export class TicketsSchedulerService {
       if (error instanceof Error) {
         console.error(error.stack);
       } else {
-        console.error("Error desconocido:", error);
+        console.error('Error desconocido:', error);
       }
     }
   }

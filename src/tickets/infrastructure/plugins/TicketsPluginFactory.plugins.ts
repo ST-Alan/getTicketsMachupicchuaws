@@ -3,9 +3,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { TicketsPlugin } from 'src/tickets/domain/interface';
 import { TicketPluginType } from 'src/tickets/domain/type/TicketPluginType';
 
-
-
-
 @Injectable()
 export class TicketsPluginFactory {
   private readonly pluginMap: Record<TicketPluginType, TicketsPlugin>;
@@ -21,7 +18,7 @@ export class TicketsPluginFactory {
       CIDD: this.ciddPlugin,
     };
   }
-  
+
   getPlugin(type: TicketPluginType): TicketsPlugin {
     const plugin = this.pluginMap[type];
     if (!plugin) {
