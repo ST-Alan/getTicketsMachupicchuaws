@@ -21,7 +21,7 @@ describe('TicketsPluginsCIDD', () => {
     expect(plugin).toBeDefined();
   });
 
-  it('should warn if env vars are missing', function (this: void) {
+  it('should warn if env vars are missing', () => {
     const logger = new Logger('TicketsPluginsCIDD');
     const plugin = new TicketsPluginsCIDD('', '', '');
     plugin.onModuleInit();
