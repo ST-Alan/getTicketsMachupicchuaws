@@ -2,18 +2,23 @@ import { Logger } from '@nestjs/common';
 import axios from 'axios';
 import { TicketsPluginsCIDD } from 'src/tickets/infrastructure/plugins';
 
+// Mock de axios
 jest.mock('axios');
+
+// Mock del Logger de @nestjs/common
 jest.mock('@nestjs/common', () => {
-    const actual = jest.requireActual('@nestjs/common');
-    return {
-      ...actual,
-      Logger: jest.fn().mockImplementation(() => ({
-        warn: jest.fn(),
-        log: jest.fn(),
-        error: jest.fn(),
-      })),
-    };
-  });
+  const actual = jest.requireActual('@nestjs/common');
+  return {
+    ...actual,
+    Logger: jest.fn().mockImplementation(() => ({
+      warn: jest.fn(),
+      log: jest.fn(),
+      error: jest.fn(),
+      debug: jest.fn(),
+      verbose: jest.fn(),
+    })),
+  };
+});
 
 describe('TicketsPluginsCIDD', () => {
   const user = 'test-user';
@@ -54,4 +59,3 @@ describe('TicketsPluginsCIDD', () => {
     expect(result).toEqual(mockData);
   });
 });
-
