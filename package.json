@@ -69,6 +69,13 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json",
+        "useESM": false,
+        "diagnostics": false
+      }
+    },
     "collectCoverageFrom": ["src/**/*.(t|j)s"],
     "coverageDirectory": "coverage",
     "testEnvironment": "node",
@@ -78,4 +85,5 @@
     },
     "moduleDirectories": ["node_modules", "src"]
   }
+
 }
