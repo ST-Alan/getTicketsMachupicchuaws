@@ -1,6 +1,6 @@
 
-import axios from 'axios';
 import { Logger } from '@nestjs/common';
+import axios from 'axios';
 import { TicketsPluginsCIDD } from 'src/tickets/infrastructure/plugins';
 
 jest.mock('axios');
@@ -23,8 +23,8 @@ describe('TicketsPluginsCIDD', () => {
   });
 
   it('should warn if env vars are missing', () => {
+    const logger = new Logger('TicketsPluginsCIDD');
     const plugin = new TicketsPluginsCIDD('', '', '');
-    const logger = (plugin as any).logger;
     plugin.onModuleInit();
     expect(logger.warn).toHaveBeenCalled();
   });
