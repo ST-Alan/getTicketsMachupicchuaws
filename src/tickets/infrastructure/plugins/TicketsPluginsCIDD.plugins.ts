@@ -32,9 +32,13 @@ export class TicketsPluginsCIDD implements TicketsPlugin,OnModuleInit {
         throw new Error('Invalid response format');
       }
       return response.data as TicketAvailability[];
-    } catch (error) {
-      this.logger.error('❌ Error fetching tickets', error.stack);
-      throw new Error('Failed to fetch tickets from Camino Inca Dos Días API');
-    }
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+          this.logger.error('❌ Error fetching tickets', error.stack);
+        } else {
+          this.logger.error('❌ Error fetching tickets', String(error));
+        }
+        throw new Error('Failed to fetch tickets from Camino Inca Dos Días API');
+      }
   }
 }
