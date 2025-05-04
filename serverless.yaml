@@ -9,12 +9,18 @@ provider:
   memorySize: 128
   timeout: 10
   architecture: arm64
+  stage: ${opt:stage, 'dev'}
+
   environment:
-    NODE_ENV: production
+    STAGE: ${self:provider.stage}
+  
 
 functions:
   syncTickets:
     handler: dist/tickets/application/service/TicketsSchedulerService.handleCron
+    memorySize: 256
+    timeout: 15
+    logRetentionInDays: 1
     events:
       - schedule:
           rate: rate(15 minutes)
@@ -22,6 +28,8 @@ functions:
 
 plugins:
   - serverless-esbuild
+  - serverless-plugin-typescript
+  - serverless-offline
 
 package:
   individually: true
@@ -35,3 +43,9 @@ custom:
     target: node18
     platform: node
     concurrency: 10
+
+
+outputs:
+  syncTicketsLambdaArn:
+    value:
+      Fn::GetAtt: [SyncTicketsLambdaFunction, Arn]
