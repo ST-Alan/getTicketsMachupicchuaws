@@ -19,8 +19,12 @@ export class TicketsSchedulerService {
       await this.ticketsService.getAvailableCaminoIncaCD();
       await this.ticketsService.getAvailableCaminoIncaDD();
       this.logger.log('✅ Sincronización de tickets completada correctamente');
-    } catch (err) {
-      this.logger.error('❌ Error en sincronización automática', err.stack);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.stack);
+      } else {
+        console.error("Error desconocido:", error);
+      }
     }
   }
 }

@@ -9,13 +9,4 @@ export class TicketsController {
     public async getAvailableTicketsMP() {
         return this.ticketsService.getAvailableTicketsMP();
     }
-
-    @Get('camino-inca-dos-dias')
-    public async getAvailableTicketsCIDD() {
-        return { };
-    }
-    @Get('camino-inca-cuatro-dias')
-    public async getAvailableTicketsCICD() {
-        return { };
-    }
 }
