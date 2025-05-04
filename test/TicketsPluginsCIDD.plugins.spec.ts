@@ -1,4 +1,3 @@
-
 import { Logger } from '@nestjs/common';
 import axios from 'axios';
 import { TicketsPluginsCIDD } from 'src/tickets/infrastructure/plugins';
@@ -22,7 +21,7 @@ describe('TicketsPluginsCIDD', () => {
     expect(plugin).toBeDefined();
   });
 
-  it('should warn if env vars are missing', () => {
+  it('should warn if env vars are missing', function (this: void) {
     const logger = new Logger('TicketsPluginsCIDD');
     const plugin = new TicketsPluginsCIDD('', '', '');
     plugin.onModuleInit();
