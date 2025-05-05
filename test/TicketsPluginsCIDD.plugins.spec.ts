@@ -17,7 +17,7 @@ jest.mock('@nestjs/common', () => {
     jest.requireActual<typeof import('@nestjs/common')>('@nestjs/common');
   return {
     ...actual,
-    Logger: jest.fn(() => mockLoggerMethods), // Sin mockImplementation para simplificar
+    Logger: jest.fn(() => mockLoggerMethods),
   };
 });
 
