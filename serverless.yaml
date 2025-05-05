@@ -28,7 +28,6 @@ functions:
 
 plugins:
   - serverless-esbuild
-  - serverless-plugin-typescript
   - serverless-offline
 
 package:
