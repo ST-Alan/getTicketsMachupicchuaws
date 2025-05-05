@@ -1,6 +1,6 @@
 service: tickets-cron-job
 
-frameworkVersion: '3'
+frameworkVersion: '4'
 
 provider:
   name: aws
