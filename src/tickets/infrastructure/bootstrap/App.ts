@@ -1,11 +1,34 @@
+// backend/src/tickets/infrastructure/bootstrap/App.ts
+import { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './App.module';
+import handleRequest from './HandlerCore';
+import middy from '@middy/core';
+import { Handler } from 'aws-lambda';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+// 1. Tipo completo para el evento Lambda
+interface LambdaEvent {
+  action: string;
+  body?: unknown;
+  headers?: Record<string, string>;
+  queryStringParameters?: Record<string, string>;
+  pathParameters?: Record<string, string>;
 }
-bootstrap().catch((err) => {
-  console.error('Error al iniciar la app:', err);
-  process.exit(1);
-});
+
+let appContext: INestApplicationContext;
+
+// 2. Handler con tipado estricto
+const bootstrap: Handler<LambdaEvent> = async (event: LambdaEvent) => {
+  if (!appContext) {
+    appContext = await NestFactory.createApplicationContext(AppModule);
+  }
+
+  // 3. Destructuración con tipo seguro
+  const { action } = event;
+  console.log('Event action:', action);
+
+  // 4. Ejecución con tipos validados
+  return handleRequest(appContext, action);
+};
+
+export const handler = middy(bootstrap);
