@@ -12,7 +12,10 @@ export class TicketsRepository {
     private readonly ticketRepo: Repository<TicketAvailabilityEntity>,
   ) {}
 
-  async saveOrUpdateTickets(tickets: TicketAvailability[], type: string): Promise<void> {
+  async saveOrUpdateTickets(
+    tickets: TicketAvailability[],
+    type: string,
+  ): Promise<void> {
     for (const ticket of tickets) {
       await this.ticketRepo.upsert(
         {
@@ -21,7 +24,7 @@ export class TicketsRepository {
           spaces: ticket.spaces,
           type,
         },
-        ['date', 'service', 'type'] // Clave única compuesta
+        ['date', 'service', 'type'], // Clave única compuesta
       );
     }
   }

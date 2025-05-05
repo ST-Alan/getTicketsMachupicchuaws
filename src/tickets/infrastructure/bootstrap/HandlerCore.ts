@@ -1,10 +1,10 @@
-import { INestApplicationContext } from "@nestjs/common";
-import { TicketsModule, TicketsController } from "../controller";
-
-
+import { INestApplicationContext } from '@nestjs/common';
+import { TicketsModule, TicketsController } from '../controller';
 
 const handlerCore = (appContext: INestApplicationContext, action: string) => {
-  const agenteController = appContext.select(TicketsModule).get(TicketsController);
+  const agenteController = appContext
+    .select(TicketsModule)
+    .get(TicketsController);
 
   if (agenteController[action]) {
     return agenteController;
