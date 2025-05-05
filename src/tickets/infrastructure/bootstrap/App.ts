@@ -2,23 +2,33 @@
 import { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './App.module';
-import handleRequest from './HandlerCore';  // Importamos el manejador de solicitudes
-import middy from '@middy/core';  // Usamos middy para manejar la función
+import handleRequest from './HandlerCore';
+import middy from '@middy/core';
+import { Handler } from 'aws-lambda';
+
+// 1. Tipo completo para el evento Lambda
+interface LambdaEvent {
+  action: string;
+  body?: unknown;
+  headers?: Record<string, string>;
+  queryStringParameters?: Record<string, string>;
+  pathParameters?: Record<string, string>;
+}
 
 let appContext: INestApplicationContext;
 
-const bootstrap = async (event) => {
+// 2. Handler con tipado estricto
+const bootstrap: Handler<LambdaEvent> = async (event: LambdaEvent) => {
   if (!appContext) {
-    // Creamos el contexto de NestJS solo una vez
     appContext = await NestFactory.createApplicationContext(AppModule);
   }
 
-  const { action } = event;  // Extraemos la acción del evento
-  console.log('event', event);
+  // 3. Destructuración con tipo seguro
+  const { action } = event;
+  console.log('Event action:', action);
 
-  // Llamamos al manejador con el contexto y la acción
+  // 4. Ejecución con tipos validados
   return handleRequest(appContext, action);
 };
 
-// Exportamos el handler con middy, sin middlewares innecesarios
 export const handler = middy(bootstrap);

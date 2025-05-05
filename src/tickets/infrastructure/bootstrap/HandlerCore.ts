@@ -1,9 +1,12 @@
 // backend/src/tickets/infrastructure/bootstrap/HandlerCore.ts
 import { INestApplicationContext } from '@nestjs/common';
-import { TicketsSchedulerService } from '../../application/service/TicketsScheduler.service';  // Importamos el servicio
+import { TicketsSchedulerService } from '../../application/service/TicketsScheduler.service'; // Importamos el servicio
 
-const handlerCore = async (appContext: INestApplicationContext, action: string) => {
-  const ticketsSchedulerService = appContext.get(TicketsSchedulerService);  // Obtenemos el servicio del contexto
+const handlerCore = async (
+  appContext: INestApplicationContext,
+  action: string,
+) => {
+  const ticketsSchedulerService = appContext.get(TicketsSchedulerService); // Obtenemos el servicio del contexto
 
   // Si la acción es 'handleCron', ejecutamos la tarea cron
   if (action === 'handleCron') {
