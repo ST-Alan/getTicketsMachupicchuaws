@@ -10,14 +10,17 @@ provider:
   timeout: 10
   architecture: arm64
   stage: ${opt:stage, 'dev'}
+  deploymentBucket:
+    name: tickets-cron-job-dev-deployment-bucket  
+    serverSideEncryption: AES256  
 
   environment:
     STAGE: ${self:provider.stage}
   
 
 functions:
-  syncTickets:
-    handler: dist/tickets/application/service/TicketsSchedulerService.handleCron
+  tickets:
+    handler: src/tickets/infrastructure/bootstrap/App.handler
     memorySize: 256
     timeout: 15
     logRetentionInDays: 1
@@ -38,13 +41,12 @@ custom:
     bundle: true
     minify: false
     sourcemap: true
-    exclude: ['aws-sdk']
+    exclude: 
+      - '@nestjs/microservices'
+      - '@nestjs/websockets'
+      - 'class-validator'
+      - 'class-transformer'
+      - 'aws-sdk'
     target: node18
     platform: node
     concurrency: 10
-
-
-outputs:
-  syncTicketsLambdaArn:
-    value:
-      Fn::GetAtt: [SyncTicketsLambdaFunction, Arn]
