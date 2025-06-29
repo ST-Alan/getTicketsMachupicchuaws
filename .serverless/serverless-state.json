@@ -12,14 +12,15 @@
       "timeout": 10,
       "architecture": "arm64",
       "stage": "dev",
-      "deploymentBucket": "tickets-cron-job-dev-deployment-bucket",
+      "deploymentBucket": "tickets-cron-job-dev-deploys",
       "environment": {
         "STAGE": "dev"
       },
       "versionFunctions": true,
       "deploymentBucketObject": {
-        "name": "tickets-cron-job-dev-deployment-bucket",
-        "serverSideEncryption": "AES256"
+        "name": "tickets-cron-job-dev-deploys",
+        "serverSideEncryption": "AES256",
+        "blockPublicAccess": true
       },
       "compiledCloudFormationTemplate": {
         "AWSTemplateFormatVersion": "2010-09-09",
@@ -114,8 +115,8 @@
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
-                "S3Bucket": "tickets-cron-job-dev-deployment-bucket",
-                "S3Key": "serverless/tickets-cron-job/dev/1746416144640-2025-05-05T03:35:44.640Z/tickets.zip"
+                "S3Bucket": "tickets-cron-job-dev-deploys",
+                "S3Key": "serverless/tickets-cron-job/dev/1746418776797-2025-05-05T04:19:36.797Z/tickets.zip"
               },
               "Handler": "src/tickets/infrastructure/bootstrap/App.handler",
               "Runtime": "nodejs18.x",
@@ -141,14 +142,14 @@
               "TicketsLogGroup"
             ]
           },
-          "TicketsLambdaVersionhuohSHRNAO2T8oodT7kx9QAFyIZC57XVfcFHzYzpE": {
+          "TicketsLambdaVersionj5h0SurxzchqPA9iP0Q4B5V5sgbN6rPqWW39dkaSZA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "TicketsLambdaFunction"
               },
-              "CodeSha256": "9553YSC2h/uzzJ5tWb6Smh9qnjro0lrVZqG1BeYYl20="
+              "CodeSha256": "Bv7vNrtBCNMCpcBddUK1lhKDWGJjAa7RBOQGRmGMSVw="
             }
           },
           "TicketsEventsRuleSchedule1": {
@@ -191,7 +192,7 @@
         },
         "Outputs": {
           "ServerlessDeploymentBucketName": {
-            "Value": "tickets-cron-job-dev-deployment-bucket",
+            "Value": "tickets-cron-job-dev-deploys",
             "Export": {
               "Name": "sls-tickets-cron-job-dev-ServerlessDeploymentBucketName"
             }
@@ -199,7 +200,7 @@
           "TicketsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TicketsLambdaVersionhuohSHRNAO2T8oodT7kx9QAFyIZC57XVfcFHzYzpE"
+              "Ref": "TicketsLambdaVersionj5h0SurxzchqPA9iP0Q4B5V5sgbN6rPqWW39dkaSZA"
             },
             "Export": {
               "Name": "sls-tickets-cron-job-dev-TicketsLambdaFunctionQualifiedArn"
@@ -254,7 +255,7 @@
         "memory": 256,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "TicketsLambdaVersionhuohSHRNAO2T8oodT7kx9QAFyIZC57XVfcFHzYzpE"
+        "versionLogicalId": "TicketsLambdaVersionj5h0SurxzchqPA9iP0Q4B5V5sgbN6rPqWW39dkaSZA"
       }
     },
     "configValidationMode": "warn",
@@ -274,7 +275,7 @@
       "package": {
         "individually": true,
         "artifactsS3KeyDirname": "serverless/tickets-cron-job/dev/code-artifacts",
-        "deploymentBucket": "tickets-cron-job-dev-deployment-bucket"
+        "deploymentBucket": "tickets-cron-job-dev-deploys"
       },
       "custom": {
         "$ref": "$[\"service\"][\"custom\"]"
@@ -285,7 +286,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/tickets-cron-job/dev/1746416144640-2025-05-05T03:35:44.640Z",
+    "artifactDirectoryName": "serverless/tickets-cron-job/dev/1746418776797-2025-05-05T04:19:36.797Z",
     "artifact": ""
   }
 }
