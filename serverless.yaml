@@ -11,8 +11,9 @@ provider:
   architecture: arm64
   stage: ${opt:stage, 'dev'}
   deploymentBucket:
-    name: tickets-cron-job-dev-deployment-bucket  
-    serverSideEncryption: AES256  
+    name: tickets-cron-job-dev-deployment-bucket
+    serverSideEncryption: AES256 
+    blockPublicAccess: true
 
   environment:
     STAGE: ${self:provider.stage}
