@@ -1,5 +1,15 @@
 // backend/src/tickets/infrastructure/bootstrap/App.ts
 import 'reflect-metadata';
+import * as crypto from 'crypto';
+(globalThis as Record<string, unknown>).crypto = crypto;
+
+console.log('=== Lambda iniciado: variables de entorno ===');
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_USER:', process.env.DB_USER);
+console.log('DB_PASS:', process.env.DB_PASS);
+console.log('DB_NAME:', process.env.DB_NAME);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('===========================================');
 
 import { INestApplicationContext, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -7,8 +17,6 @@ import { AppModule } from './App.module';
 import handleRequest from './HandlerCore';
 import middy from '@middy/core';
 import { Handler } from 'aws-lambda';
-import * as crypto from 'crypto';
-(globalThis as Record<string, unknown>).crypto = crypto;
 
 const logger = new Logger('LambdaBootstrap');
 
