@@ -36,13 +36,14 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
       inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([TicketAvailabilityEntity]),
-    TicketsSchedulerService,
+    
   ],
   controllers: [TicketsController],
   providers: [
     TicketsService,
     TicketsDomainService,
     TicketsPluginFactory,
+    TicketsSchedulerService,
     // Plugin MP
     {
       provide: 'MP_PLUGIN',
