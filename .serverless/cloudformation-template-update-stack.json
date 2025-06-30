@@ -92,7 +92,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "tickets-cron-job-dev-deployment-bucket",
-          "S3Key": "serverless/tickets-cron-job/dev/1751317773276-2025-06-30T21:09:33.276Z/ticketsJob.zip"
+          "S3Key": "serverless/tickets-cron-job/dev/1751318661309-2025-06-30T21:24:21.309Z/ticketsJob.zip"
         },
         "Handler": "src/tickets/infrastructure/bootstrap/lambda-entry.handler",
         "Runtime": "nodejs18.x",
