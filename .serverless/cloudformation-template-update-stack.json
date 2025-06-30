@@ -92,7 +92,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "tickets-cron-job-dev-deployment-bucket",
-          "S3Key": "serverless/tickets-cron-job/dev/1751314608315-2025-06-30T20:16:48.315Z/ticketsJob.zip"
+          "S3Key": "serverless/tickets-cron-job/dev/1751314917284-2025-06-30T20:21:57.284Z/ticketsJob.zip"
         },
         "Handler": "src/tickets/infrastructure/bootstrap/App.handler",
         "Runtime": "nodejs18.x",
@@ -118,14 +118,14 @@
         "TicketsJobLogGroup"
       ]
     },
-    "TicketsJobLambdaVersiondD5c02oM1IK0MG4tUcCZ9Z8AJ6OkRFR1hdCWdiOuQ": {
+    "TicketsJobLambdaVersiony1CHJPXBDNUHbpoIq619S04dniIYJ2A6tutn2VI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "TicketsJobLambdaFunction"
         },
-        "CodeSha256": "UFwPWfLtNY2eKPQqHt+kpwx0R15da690B/F5dJWSuuk="
+        "CodeSha256": "1U6epQurDf0qrgEdaOwrRfZUoPdh9O/nuvBIZbqfiN8="
       }
     },
     "TicketsJobEventsRuleSchedule1": {
@@ -176,7 +176,7 @@
     "TicketsJobLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "TicketsJobLambdaVersiondD5c02oM1IK0MG4tUcCZ9Z8AJ6OkRFR1hdCWdiOuQ"
+        "Ref": "TicketsJobLambdaVersiony1CHJPXBDNUHbpoIq619S04dniIYJ2A6tutn2VI"
       },
       "Export": {
         "Name": "sls-tickets-cron-job-dev-TicketsJobLambdaFunctionQualifiedArn"

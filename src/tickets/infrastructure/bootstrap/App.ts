@@ -1,5 +1,7 @@
 // backend/src/tickets/infrastructure/bootstrap/App.ts
 import 'reflect-metadata';
+import * as crypto from 'crypto';
+(globalThis as Record<string, unknown>).crypto = crypto;
 
 console.log('=== Lambda iniciado: variables de entorno ===');
 console.log('DB_HOST:', process.env.DB_HOST);
@@ -15,8 +17,6 @@ import { AppModule } from './App.module';
 import handleRequest from './HandlerCore';
 import middy from '@middy/core';
 import { Handler } from 'aws-lambda';
-import * as crypto from 'crypto';
-(globalThis as Record<string, unknown>).crypto = crypto;
 
 const logger = new Logger('LambdaBootstrap');
 
