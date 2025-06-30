@@ -21,7 +21,7 @@ provider:
 
 functions:
   ticketsJob:
-    handler: src/tickets/infrastructure/bootstrap/App.handler
+    handler: src/tickets/infrastructure/bootstrap/lambda-entry.handler
     memorySize: 256
     timeout: 15
     logRetentionInDays: 1

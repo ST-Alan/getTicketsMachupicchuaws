@@ -1,8 +1,3 @@
-// backend/src/tickets/infrastructure/bootstrap/App.ts
-import 'reflect-metadata';
-import * as crypto from 'crypto';
-(globalThis as Record<string, unknown>).crypto = crypto;
-
 console.log('=== Lambda iniciado: variables de entorno ===');
 console.log('DB_HOST:', process.env.DB_HOST);
 console.log('DB_USER:', process.env.DB_USER);
