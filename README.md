@@ -49,90 +49,104 @@ sls deploy --stage dev
 
 Políticas de AWS:
 {
-	"Version": "2012-10-17",
-	"Statement": [
-		{
-			"Effect": "Allow",
-			"Action": [
-				"lambda:CreateFunction",
-				"lambda:UpdateFunctionCode",
-				"lambda:UpdateFunctionConfiguration",
-				"lambda:DeleteFunction",
-				"lambda:GetFunction",
-				"lambda:ListFunctions",
-				"lambda:TagResource",
-				"lambda:ListVersionsByFunction",
-				"lambda:PublishVersion"
-			],
-			"Resource": "*"
-		},
-		{
-			"Effect": "Allow",
-			"Action": [
-				"cloudformation:CreateChangeSet",
-				"cloudformation:CreateStack",
-				"cloudformation:DeleteStack",
-				"cloudformation:DescribeChangeSet",
-				"cloudformation:DescribeStackEvents",
-				"cloudformation:DescribeStackResources",
-				"cloudformation:DescribeStacks",
-				"cloudformation:ExecuteChangeSet",
-				"cloudformation:GetTemplate",
-				"cloudformation:ListStacks",
-				"cloudformation:UpdateStack",
-				"cloudformation:ValidateTemplate",
-				"cloudformation:Create*",
-				"cloudformation:Update*",
-				"cloudformation:Delete*",
-				"cloudformation:Describe*",
-				"cloudformation:Execute*",
-				"cloudformation:List*"
-			],
-			"Resource": "*"
-		},
-		{
-			"Effect": "Allow",
-			"Action": [
-				"iam:GetRole",
-				"iam:CreateRole",
-				"iam:DeleteRole",
-				"iam:PutRolePolicy",
-				"iam:AttachRolePolicy",
-				"iam:DetachRolePolicy",
-				"iam:PassRole",
-				"iam:DeleteRolePolicy",
-				"iam:TagRole"
-			],
-			"Resource": "*"
-		},
-		{
-			"Effect": "Allow",
-			"Action": [
-				"logs:CreateLogGroup",
-				"logs:CreateLogStream",
-				"logs:PutLogEvents",
-				"logs:DescribeLogGroups",
-				"logs:DescribeLogStreams",
-				"logs:TagResource",
-				"logs:DeleteLogGroup",
-				"logs:PutRetentionPolicy"
-			],
-			"Resource": "*"
-		},
-		{
-			"Effect": "Allow",
-			"Action": [
-				"s3:CreateBucket",
-				"s3:PutBucketPolicy",
-				"s3:PutEncryptionConfiguration",
-				"s3:PutBucketPublicAccessBlock",
-				"s3:GetBucketLocation",
-				"s3:ListBucket",
-				"s3:PutObject",
-				"s3:GetObject",
-				"s3:DeleteObject"
-			],
-			"Resource": "*"
-		}
-	]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "events:DescribeRule",
+                "events:PutRule",
+                "events:DeleteRule",
+                "events:PutTargets",
+                "events:RemoveTargets",
+                "events:ListRules",
+                "events:ListTargetsByRule"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "lambda:CreateFunction",
+                "lambda:UpdateFunctionCode",
+                "lambda:UpdateFunctionConfiguration",
+                "lambda:DeleteFunction",
+                "lambda:GetFunction",
+                "lambda:ListFunctions",
+                "lambda:TagResource",
+                "lambda:ListVersionsByFunction",
+                "lambda:PublishVersion",
+                "lambda:AddPermission"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateChangeSet",
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:DescribeChangeSet",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:DescribeStackResources",
+                "cloudformation:DescribeStacks",
+                "cloudformation:ExecuteChangeSet",
+                "cloudformation:GetTemplate",
+                "cloudformation:ListStacks",
+                "cloudformation:UpdateStack",
+                "cloudformation:ValidateTemplate",
+                "cloudformation:Create*",
+                "cloudformation:Update*",
+                "cloudformation:Delete*",
+                "cloudformation:Describe*",
+                "cloudformation:Execute*",
+                "cloudformation:List*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "iam:PutRolePolicy",
+                "iam:AttachRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:PassRole",
+                "iam:DeleteRolePolicy",
+                "iam:TagRole"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogGroups",
+                "logs:DescribeLogStreams",
+                "logs:TagResource",
+                "logs:DeleteLogGroup",
+                "logs:PutRetentionPolicy"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:PutBucketPolicy",
+                "s3:PutEncryptionConfiguration",
+                "s3:PutBucketPublicAccessBlock",
+                "s3:GetBucketLocation",
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": "*"
+        }
+    ]
 }

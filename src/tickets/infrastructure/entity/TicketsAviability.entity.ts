@@ -10,12 +10,12 @@ export class TicketAvailabilityEntity {
   @Column({ type: 'date' })
   date!: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   service!: string;
 
-  @Column()
+  @Column({ type: 'int' })
   spaces!: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   type!: string; // 'MP', 'CICD', 'CIDD'
 }
