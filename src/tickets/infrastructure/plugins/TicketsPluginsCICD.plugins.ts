@@ -33,6 +33,7 @@ export class TicketsPluginsCICD implements TicketsPlugin, OnModuleInit {
     try {
       const response = await axios.get(url);
       this.logger.log('Respuesta recibida de Camino Inca CICD');
+      this.logger.log(`Respuesta completa: ${JSON.stringify(response.data)}`);
       if (!Array.isArray(response.data)) {
         this.logger.error('Formato de respuesta inválido');
         throw new Error('Invalid response format');
