@@ -1,4 +1,6 @@
 // backend/src/tickets/infrastructure/bootstrap/App.ts
+import 'reflect-metadata';
+
 import { INestApplicationContext, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './App.module';
@@ -6,7 +8,7 @@ import handleRequest from './HandlerCore';
 import middy from '@middy/core';
 import { Handler } from 'aws-lambda';
 import * as crypto from 'crypto';
-(global as any).crypto = crypto;
+(globalThis as Record<string, unknown>).crypto = crypto;
 
 const logger = new Logger('LambdaBootstrap');
 
