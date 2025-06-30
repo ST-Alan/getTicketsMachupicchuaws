@@ -12,13 +12,13 @@
       "timeout": 10,
       "architecture": "arm64",
       "stage": "dev",
-      "deploymentBucket": "tickets-cron-job-dev-deploys",
+      "deploymentBucket": "tickets-cron-job-dev-deployment-bucket",
       "environment": {
         "STAGE": "dev"
       },
       "versionFunctions": true,
       "deploymentBucketObject": {
-        "name": "tickets-cron-job-dev-deploys",
+        "name": "tickets-cron-job-dev-deployment-bucket",
         "serverSideEncryption": "AES256",
         "blockPublicAccess": true
       },
@@ -26,10 +26,10 @@
         "AWSTemplateFormatVersion": "2010-09-09",
         "Description": "The AWS CloudFormation template for this Serverless application",
         "Resources": {
-          "TicketsLogGroup": {
+          "TicketsJobLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/tickets-cron-job-dev-tickets",
+              "LogGroupName": "/aws/lambda/tickets-cron-job-dev-ticketsJob",
               "RetentionInDays": 1
             }
           },
@@ -111,16 +111,16 @@
               }
             }
           },
-          "TicketsLambdaFunction": {
+          "TicketsJobLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
-                "S3Bucket": "tickets-cron-job-dev-deploys",
-                "S3Key": "serverless/tickets-cron-job/dev/1746418776797-2025-05-05T04:19:36.797Z/tickets.zip"
+                "S3Bucket": "tickets-cron-job-dev-deployment-bucket",
+                "S3Key": "serverless/tickets-cron-job/dev/1751294914430-2025-06-30T14:48:34.430Z/ticketsJob.zip"
               },
               "Handler": "src/tickets/infrastructure/bootstrap/App.handler",
               "Runtime": "nodejs18.x",
-              "FunctionName": "tickets-cron-job-dev-tickets",
+              "FunctionName": "tickets-cron-job-dev-ticketsJob",
               "MemorySize": 256,
               "Timeout": 15,
               "Architectures": [
@@ -139,20 +139,20 @@
               }
             },
             "DependsOn": [
-              "TicketsLogGroup"
+              "TicketsJobLogGroup"
             ]
           },
-          "TicketsLambdaVersionj5h0SurxzchqPA9iP0Q4B5V5sgbN6rPqWW39dkaSZA": {
+          "TicketsJobLambdaVersionm3IWU4EmGyUltWBIKq3sOLDx1wJZzILtZW9C1nZpXo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "TicketsLambdaFunction"
+                "Ref": "TicketsJobLambdaFunction"
               },
-              "CodeSha256": "Bv7vNrtBCNMCpcBddUK1lhKDWGJjAa7RBOQGRmGMSVw="
+              "CodeSha256": "TxYAJoJ6j4S3sqsOUPK9e7WFy0s5C5Ut8dpWWxP9bT8="
             }
           },
-          "TicketsEventsRuleSchedule1": {
+          "TicketsJobEventsRuleSchedule1": {
             "Type": "AWS::Events::Rule",
             "Properties": {
               "ScheduleExpression": "rate(15 minutes)",
@@ -161,21 +161,21 @@
                 {
                   "Arn": {
                     "Fn::GetAtt": [
-                      "TicketsLambdaFunction",
+                      "TicketsJobLambdaFunction",
                       "Arn"
                     ]
                   },
-                  "Id": "ticketsSchedule"
+                  "Id": "ticketsJobSchedule"
                 }
               ]
             }
           },
-          "TicketsLambdaPermissionEventsRuleSchedule1": {
+          "TicketsJobLambdaPermissionEventsRuleSchedule1": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
                 "Fn::GetAtt": [
-                  "TicketsLambdaFunction",
+                  "TicketsJobLambdaFunction",
                   "Arn"
                 ]
               },
@@ -183,7 +183,7 @@
               "Principal": "events.amazonaws.com",
               "SourceArn": {
                 "Fn::GetAtt": [
-                  "TicketsEventsRuleSchedule1",
+                  "TicketsJobEventsRuleSchedule1",
                   "Arn"
                 ]
               }
@@ -192,18 +192,18 @@
         },
         "Outputs": {
           "ServerlessDeploymentBucketName": {
-            "Value": "tickets-cron-job-dev-deploys",
+            "Value": "tickets-cron-job-dev-deployment-bucket",
             "Export": {
               "Name": "sls-tickets-cron-job-dev-ServerlessDeploymentBucketName"
             }
           },
-          "TicketsLambdaFunctionQualifiedArn": {
+          "TicketsJobLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TicketsLambdaVersionj5h0SurxzchqPA9iP0Q4B5V5sgbN6rPqWW39dkaSZA"
+              "Ref": "TicketsJobLambdaVersionm3IWU4EmGyUltWBIKq3sOLDx1wJZzILtZW9C1nZpXo"
             },
             "Export": {
-              "Name": "sls-tickets-cron-job-dev-TicketsLambdaFunctionQualifiedArn"
+              "Name": "sls-tickets-cron-job-dev-TicketsJobLambdaFunctionQualifiedArn"
             }
           }
         }
@@ -233,7 +233,7 @@
     ],
     "pluginsData": {},
     "functions": {
-      "tickets": {
+      "ticketsJob": {
         "handler": "src/tickets/infrastructure/bootstrap/App.handler",
         "memorySize": 256,
         "timeout": 15,
@@ -248,14 +248,14 @@
             }
           }
         ],
-        "name": "tickets-cron-job-dev-tickets",
+        "name": "tickets-cron-job-dev-ticketsJob",
         "package": {
-          "artifact": ".serverless\\tickets.zip"
+          "artifact": ".serverless\\ticketsJob.zip"
         },
         "memory": 256,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "TicketsLambdaVersionj5h0SurxzchqPA9iP0Q4B5V5sgbN6rPqWW39dkaSZA"
+        "versionLogicalId": "TicketsJobLambdaVersionm3IWU4EmGyUltWBIKq3sOLDx1wJZzILtZW9C1nZpXo"
       }
     },
     "configValidationMode": "warn",
@@ -275,7 +275,7 @@
       "package": {
         "individually": true,
         "artifactsS3KeyDirname": "serverless/tickets-cron-job/dev/code-artifacts",
-        "deploymentBucket": "tickets-cron-job-dev-deploys"
+        "deploymentBucket": "tickets-cron-job-dev-deployment-bucket"
       },
       "custom": {
         "$ref": "$[\"service\"][\"custom\"]"
@@ -286,7 +286,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/tickets-cron-job/dev/1746418776797-2025-05-05T04:19:36.797Z",
+    "artifactDirectoryName": "serverless/tickets-cron-job/dev/1751294914430-2025-06-30T14:48:34.430Z",
     "artifact": ""
   }
 }

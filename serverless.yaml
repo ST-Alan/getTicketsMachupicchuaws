@@ -20,7 +20,7 @@ provider:
   
 
 functions:
-  tickets:
+  ticketsJob:
     handler: src/tickets/infrastructure/bootstrap/App.handler
     memorySize: 256
     timeout: 15

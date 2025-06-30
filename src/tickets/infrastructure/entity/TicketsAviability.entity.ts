@@ -5,17 +5,17 @@ import { Entity, Column, PrimaryGeneratedColumn, Unique } from 'typeorm';
 @Unique(['date', 'service', 'type'])
 export class TicketAvailabilityEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'date' })
-  date: string;
+  date!: string;
 
   @Column()
-  service: string;
+  service!: string;
 
   @Column()
-  spaces: number;
+  spaces!: number;
 
   @Column()
-  type: string; // 'MP', 'CICD', 'CIDD'
+  type!: string; // 'MP', 'CICD', 'CIDD'
 }
