@@ -1,11 +1,12 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { TicketsPluginFactoryInterface, TicketsRepository } from '../interface';
+import { TicketsPluginFactory } from 'src/tickets/infrastructure/plugins';
 
 @Injectable()
 export class TicketsDomainService {
   private readonly logger = new Logger(TicketsDomainService.name);
   constructor(
-    @Inject('TicketsPluginFactory')
+    @Inject(TicketsPluginFactory)
     private readonly pluginFactory: TicketsPluginFactoryInterface,
     @Inject('TicketsRepository')
     private readonly ticketsRepository: TicketsRepository,
