@@ -43,7 +43,7 @@ functions:
           enabled: true
           input:
             action: 'handleCron'
-
+            
 plugins:
   - serverless-esbuild
 
