@@ -46,7 +46,7 @@
     "@types/aws-lambda": "^8.10.150",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.7",
+    "@types/node": "^22.15.34",
     "@types/supertest": "^6.0.2",
     "esbuild": "^0.25.2",
     "eslint": "^9.18.0",
