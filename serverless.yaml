@@ -1,3 +1,4 @@
+# serverless.yaml
 service: tickets-cron-job
 
 frameworkVersion: '3'
@@ -14,10 +15,21 @@ provider:
     name: tickets-cron-job-dev-deployment-bucket
     serverSideEncryption: AES256 
     blockPublicAccess: true
+  # AQUÍ MAPEAMOS LAS VARIABLES AL ENTORNO DE LA LAMBDA
   environment:
     STAGE: ${self:provider.stage}
-    
-  
+    DB_HOST: ${env:DB_HOST}
+    DB_PORT: ${env:DB_PORT}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_NAME: ${env:DB_NAME}
+    CAMINO_INCA_USER: ${env:CAMINO_INCA_USER}
+    CAMINO_INCA_SERVICE: ${env:CAMINO_INCA_SERVICE}
+    CAMINO_INCA_FORMAT: ${env:CAMINO_INCA_FORMAT}
+    CICD_USER: ${env:CICD_USER}
+    CAMINO_INCA_SERVICE_CD: ${env:CAMINO_INCA_SERVICE_CD}
+    CAMINO_INCA_SERVICE_DD: ${env:CAMINO_INCA_SERVICE_DD}
+    CICD_FORMAT: ${env:CICD_FORMAT}
 
 functions:
   ticketsJob:
@@ -32,7 +44,6 @@ functions:
 
 plugins:
   - serverless-esbuild
-  # - serverless-offline
 
 package:
   individually: true
