@@ -41,7 +41,8 @@ functions:
       - schedule:
           rate: rate(15 minutes)
           enabled: true
-
+          input:
+                action: 'handleCron'
 plugins:
   - serverless-esbuild
 
