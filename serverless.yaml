@@ -14,9 +14,9 @@ provider:
     name: tickets-cron-job-dev-deployment-bucket
     serverSideEncryption: AES256 
     blockPublicAccess: true
-
   environment:
     STAGE: ${self:provider.stage}
+    
   
 
 functions:
@@ -32,7 +32,7 @@ functions:
 
 plugins:
   - serverless-esbuild
-  - serverless-offline
+  # - serverless-offline
 
 package:
   individually: true
