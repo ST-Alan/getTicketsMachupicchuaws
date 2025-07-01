@@ -3,12 +3,11 @@ name: Deploy to AWS via Serverless
 on:
   push:
     branches:
-      - main
+      - main # Asegúrate que esta es tu rama de despliegue
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -26,6 +25,23 @@ jobs:
 
       - name: Deploy to AWS
         env:
+          # Credenciales de AWS
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_SERVERLESS_MINIMUN_PERMISSION }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY_SERVERLESS }}
+
+          # Secretos de la Base de Datos
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+
+          # Secretos de las APIs de Tickets
+          CAMINO_INCA_USER: ${{ secrets.CAMINO_INCA_USER }}
+          CAMINO_INCA_SERVICE: ${{ secrets.CAMINO_INCA_SERVICE }}
+          CAMINO_INCA_FORMAT: ${{ secrets.CAMINO_INCA_FORMAT }}
+          CICD_USER: ${{ secrets.CICD_USER }}
+          CAMINO_INCA_SERVICE_CD: ${{ secrets.CAMINO_INCA_SERVICE_CD }}
+          CAMINO_INCA_SERVICE_DD: ${{ secrets.CAMINO_INCA_SERVICE_DD }}
+          CICD_FORMAT: ${{ secrets.CICD_FORMAT }}
         run: sls deploy --stage dev
