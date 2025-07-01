@@ -36,13 +36,14 @@ functions:
     handler: src/tickets/infrastructure/bootstrap/lambda-entry.handler
     memorySize: 256
     timeout: 15
-    logRetentionInDays: 1
+    logRetentionInDays: 7
     events:
       - schedule:
           rate: rate(15 minutes)
           enabled: true
           input:
-                action: 'handleCron'
+            action: 'handleCron'
+            
 plugins:
   - serverless-esbuild
 
