@@ -15,6 +15,11 @@ export class TicketsDomainService {
   public async getAvailableTicketsMP() {
     this.logger.log('Consultando tickets MP...');
     const plugin = this.pluginFactory.getPlugin('MP');
+    
+    // 💡 Validación de existencia del plugin
+    console.log('Plugin MP desde Factory:', plugin);
+    if (!plugin) throw new Error('Plugin MP no definido desde la fábrica');
+    
     const tickets = await plugin.fetchTickets();
     this.logger.log(`Tickets MP obtenidos: ${tickets.length}`);
     await this.ticketsRepository.saveTickets(tickets, 'MP');
