@@ -1,11 +1,12 @@
 // tickets-plugin-mp.ts
-import { Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import axios from 'axios';
 import {
   TicketAvailability,
   TicketsPlugin,
 } from 'src/tickets/domain/interface';
 
+@Injectable()
 export class TicketsPluginsMP implements TicketsPlugin, OnModuleInit {
   private readonly logger = new Logger(TicketsPluginsMP.name);
 
