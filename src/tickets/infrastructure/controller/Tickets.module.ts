@@ -26,7 +26,7 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
         host: configService.get<string>('DB_HOST'),
-        port: Number(process.env.DB_PORT),
+        port: configService.get<number>('DB_PORT'),
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
@@ -53,26 +53,29 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
           configService.get<string>('CAMINO_INCA_SERVICE') ?? '',
           configService.get<string>('CAMINO_INCA_FORMAT') ?? '',
         ),
+      inject: [ConfigService],
     },
     // Plugin CICD
     {
       provide: 'CICD_PLUGIN',
-      useFactory: () =>
+      useFactory: (configService: ConfigService) =>
         new TicketsPluginsCICD(
-          process.env.CICD_USER || '',
-          process.env.CAMINO_INCA_SERVICE_CD || '',
-          process.env.CICD_FORMAT || '',
+          configService.get<string>('CICD_USER') ?? '',
+          configService.get<string>('CAMINO_INCA_SERVICE_CD') ?? '',
+          configService.get<string>('CICD_FORMAT') ?? '',
         ),
+      inject: [ConfigService],
     },
     // Plugin CICD
     {
       provide: 'CIDD_PLUGIN',
-      useFactory: () =>
+      useFactory: (configService: ConfigService) =>
         new TicketsPluginsCIDD(
-          process.env.CICD_USER || '',
-          process.env.CAMINO_INCA_SERVICE_DD || '',
-          process.env.CICD_FORMAT || '',
+          configService.get<string>('CICD_USER') ?? '',
+          configService.get<string>('CAMINO_INCA_SERVICE_CD') ?? '',
+          configService.get<string>('CICD_FORMAT') ?? '',
         ),
+      inject: [ConfigService],
     },
     {
       provide: 'TicketsRepository',
