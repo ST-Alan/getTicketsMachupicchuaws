@@ -47,11 +47,11 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
     // Plugin MP
     {
       provide: 'MP_PLUGIN',
-      useFactory: () =>
+      useFactory: (configService: ConfigService) =>
         new TicketsPluginsMP(
-          process.env.CAMINO_INCA_USER || '',
-          process.env.CAMINO_INCA_SERVICE || '',
-          process.env.CAMINO_INCA_FORMAT || '',
+          configService.get<string>('CAMINO_INCA_USER') ?? '',
+          configService.get<string>('CAMINO_INCA_SERVICE') ?? '',
+          configService.get<string>('CAMINO_INCA_FORMAT') ?? '',
         ),
     },
     // Plugin CICD
