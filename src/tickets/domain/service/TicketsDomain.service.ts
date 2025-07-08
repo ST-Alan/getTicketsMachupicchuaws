@@ -14,6 +14,7 @@ export class TicketsDomainService {
 
   public async getAvailableTicketsMP() {
     this.logger.log('Consultando tickets MP...');
+    console.log('Factory in Domain:', this.pluginFactory);
     const plugin = this.pluginFactory.getPlugin('MP');
     this.logger.log('Plugin MP obtenido:', plugin);
     
