@@ -10,11 +10,12 @@ export class TicketsDomainService {
     private readonly pluginFactory: TicketsPluginFactoryInterface,
     @Inject('TicketsRepository')
     private readonly ticketsRepository: TicketsRepository,
-  ) {}
+  ) {console.log('Constructor TicketsDomainService:', this.pluginFactory);}
 
+  
   public async getAvailableTicketsMP() {
     this.logger.log('Consultando tickets MP...');
-    console.log('Factory in Domain:', this.pluginFactory);
+    console.log('PluginFactory en método getAvailableTicketsMP:', this.pluginFactory);
     const plugin = this.pluginFactory.getPlugin('MP');
     this.logger.log('Plugin MP obtenido:', plugin);
     
