@@ -41,7 +41,10 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
   controllers: [TicketsController],
   providers: [
     TicketsService,
-    TicketsDomainService,
+    {
+      provide: TicketsDomainService,
+      useClass: TicketsDomainService,
+    },
     TicketsPluginFactory,
     TicketsSchedulerService,
     // Plugin MP
