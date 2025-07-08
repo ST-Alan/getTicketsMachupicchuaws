@@ -71,9 +71,9 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
       provide: 'CIDD_PLUGIN',
       useFactory: (configService: ConfigService) =>
         new TicketsPluginsCIDD(
-          configService.get<string>('CICD_USER') ?? '',
-          configService.get<string>('CAMINO_INCA_SERVICE_CD') ?? '',
-          configService.get<string>('CICD_FORMAT') ?? '',
+          configService.get<string>('CIDD_USER') ?? '',
+          configService.get<string>('CAMINO_INCA_SERVICE_DD') ?? '',
+          configService.get<string>('CIDD_FORMAT') ?? '',
         ),
       inject: [ConfigService],
     },
