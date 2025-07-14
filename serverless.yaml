@@ -3,6 +3,11 @@ service: tickets-cron-job
 
 frameworkVersion: '3'
 
+# ✅ IMPORTANTE: dotenv debe ser el PRIMER plugin
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-esbuild
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -15,7 +20,8 @@ provider:
     name: tickets-cron-job-dev-deployment-bucket
     serverSideEncryption: AES256 
     blockPublicAccess: true
-  # AQUÍ MAPEAMOS LAS VARIABLES AL ENTORNO DE LA LAMBDA
+  
+  # ✅ VARIABLES DE ENTORNO PARA LA LAMBDA
   environment:
     STAGE: ${self:provider.stage}
     DB_HOST: ${env:DB_HOST}
@@ -26,7 +32,6 @@ provider:
     CAMINO_INCA_USER: ${env:CAMINO_INCA_USER}
     CAMINO_INCA_SERVICE: ${env:CAMINO_INCA_SERVICE}
     CAMINO_INCA_FORMAT: ${env:CAMINO_INCA_FORMAT}
-    CICD_USER: ${env:CICD_USER}
     CAMINO_INCA_SERVICE_CD: ${env:CAMINO_INCA_SERVICE_CD}
     CAMINO_INCA_SERVICE_DD: ${env:CAMINO_INCA_SERVICE_DD}
     CICD_FORMAT: ${env:CICD_FORMAT}
@@ -43,14 +48,27 @@ functions:
           enabled: true
           input:
             action: 'handleCron'
-            
-plugins:
-  - serverless-esbuild
 
 package:
   individually: true
 
 custom:
+  # ✅ Configuración de dotenv
+  dotenv:
+    # Archivos .env a cargar (en orden de prioridad)
+    path: .env
+    # Opcional: diferentes archivos por stage
+    # path: .env.${opt:stage, 'dev'}
+    logging: false
+    required:
+      # Variables obligatorias
+      env:
+        - DB_HOST
+        - DB_PORT
+        - DB_USER
+        - DB_PASSWORD
+        - DB_NAME
+    
   esbuild:
     bundle: true
     minify: false

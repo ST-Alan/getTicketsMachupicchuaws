@@ -40,13 +40,10 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
   ],
   controllers: [TicketsController],
   providers: [
-    TicketsService,
-    {
-      provide: TicketsDomainService,
-      useClass: TicketsDomainService,
-    },
-    TicketsPluginFactory,
-    TicketsSchedulerService,
+     TicketsService,
+  TicketsDomainService, // ✅ Simplemente así
+  TicketsPluginFactory,
+  TicketsSchedulerService,
     // Plugin MP
     {
       provide: 'MP_PLUGIN',
@@ -63,7 +60,7 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
       provide: 'CICD_PLUGIN',
       useFactory: (configService: ConfigService) =>
         new TicketsPluginsCICD(
-          configService.get<string>('CICD_USER') ?? '',
+          configService.get<string>('CAMINO_INCA_USER') ?? '',
           configService.get<string>('CAMINO_INCA_SERVICE_CD') ?? '',
           configService.get<string>('CICD_FORMAT') ?? '',
         ),
@@ -74,7 +71,7 @@ import { TicketsSchedulerService } from 'src/tickets/application/service/Tickets
       provide: 'CIDD_PLUGIN',
       useFactory: (configService: ConfigService) =>
         new TicketsPluginsCIDD(
-          configService.get<string>('CIDD_USER') ?? '',
+          configService.get<string>('CAMINO_INCA_USER') ?? '',
           configService.get<string>('CAMINO_INCA_SERVICE_DD') ?? '',
           configService.get<string>('CIDD_FORMAT') ?? '',
         ),

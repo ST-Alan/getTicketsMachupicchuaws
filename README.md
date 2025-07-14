@@ -150,3 +150,24 @@ Políticas de AWS:
         }
     ]
 }
+
+
+7. Verificar la configuración
+Para verificar que todo funciona:
+# Verificar que las variables se cargan
+sls print
+
+# Verificar configuración específica
+sls print --verbose
+
+# Verificar las variables de entorno específicamente
+sls print --verbose | grep -A 20 "environment:"
+
+# Deploy
+sls deploy
+
+# Hacer deploy limpio:
+rm -rf node_modules package-lock.json .serverless dist
+npm install
+npm run build
+sls deploy --stage dev

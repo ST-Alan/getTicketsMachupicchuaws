@@ -14,7 +14,20 @@
       "stage": "dev",
       "deploymentBucket": "tickets-cron-job-dev-deployment-bucket",
       "environment": {
-        "STAGE": "dev"
+        "STAGE": "dev",
+        "DB_HOST": "192.145.239.40",
+        "DB_PORT": "3306",
+        "DB_USER": "ensolu7_andeanTicketsUser",
+        "DB_PASSWORD": "unD",
+        "DB_NAME": "ensolu7_andeanTickets",
+        "CAMINO_INCA_USER": "004280104c1b34c67ecaf2a5c3d0289b716282921f3c9e15",
+        "CAMINO_INCA_SERVICE": "machu",
+        "CAMINO_INCA_FORMAT": "json",
+        "CAMINO_INCA_SERVICE_CD": "camino4",
+        "CAMINO_INCA_SERVICE_DD": "camino2",
+        "CICD_FORMAT": "json",
+        "CIDD_FORMAT": "json",
+        "DB_SSLMODE": "require"
       },
       "versionFunctions": true,
       "deploymentBucketObject": {
@@ -30,7 +43,7 @@
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
               "LogGroupName": "/aws/lambda/tickets-cron-job-dev-ticketsJob",
-              "RetentionInDays": 1
+              "RetentionInDays": 7
             }
           },
           "IamRoleLambdaExecution": {
@@ -116,7 +129,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "tickets-cron-job-dev-deployment-bucket",
-                "S3Key": "serverless/tickets-cron-job/dev/1751335876893-2025-07-01T02:11:16.893Z/ticketsJob.zip"
+                "S3Key": "serverless/tickets-cron-job/dev/1752532739135-2025-07-14T22:38:59.135Z/ticketsJob.zip"
               },
               "Handler": "src/tickets/infrastructure/bootstrap/lambda-entry.handler",
               "Runtime": "nodejs18.x",
@@ -128,7 +141,20 @@
               ],
               "Environment": {
                 "Variables": {
-                  "STAGE": "dev"
+                  "STAGE": "dev",
+                  "DB_HOST": "192.145.239.40",
+                  "DB_PORT": "3306",
+                  "DB_USER": "ensolu7_andeanTicketsUser",
+                  "DB_PASSWORD": "unD",
+                  "DB_NAME": "ensolu7_andeanTickets",
+                  "CAMINO_INCA_USER": "004280104c1b34c67ecaf2a5c3d0289b716282921f3c9e15",
+                  "CAMINO_INCA_SERVICE": "machu",
+                  "CAMINO_INCA_FORMAT": "json",
+                  "CAMINO_INCA_SERVICE_CD": "camino4",
+                  "CAMINO_INCA_SERVICE_DD": "camino2",
+                  "CICD_FORMAT": "json",
+                  "CIDD_FORMAT": "json",
+                  "DB_SSLMODE": "require"
                 }
               },
               "Role": {
@@ -142,14 +168,14 @@
               "TicketsJobLogGroup"
             ]
           },
-          "TicketsJobLambdaVersionCpgBywx1tcR1teFas0YZ7AVxLWsmA0sd35N6M6qslPE": {
+          "TicketsJobLambdaVersionqC4H4xRWEZy7xczU0cuWqMKJPXKVsU1Tu3D0HsgeBo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "TicketsJobLambdaFunction"
               },
-              "CodeSha256": "6DcfqPBOktF/Ts3UAnif0km2ZXdVZ6dK++r+qWUbIxs="
+              "CodeSha256": "uvGEanz/0QF7e64bXmp55xLbV/GLzHl/Mj6NX+C8vwQ="
             }
           },
           "TicketsJobEventsRuleSchedule1": {
@@ -159,6 +185,7 @@
               "State": "ENABLED",
               "Targets": [
                 {
+                  "Input": "{\"action\":\"handleCron\"}",
                   "Arn": {
                     "Fn::GetAtt": [
                       "TicketsJobLambdaFunction",
@@ -200,7 +227,7 @@
           "TicketsJobLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TicketsJobLambdaVersionCpgBywx1tcR1teFas0YZ7AVxLWsmA0sd35N6M6qslPE"
+              "Ref": "TicketsJobLambdaVersionqC4H4xRWEZy7xczU0cuWqMKJPXKVsU1Tu3D0HsgeBo"
             },
             "Export": {
               "Name": "sls-tickets-cron-job-dev-TicketsJobLambdaFunctionQualifiedArn"
@@ -211,6 +238,19 @@
       "vpc": {}
     },
     "custom": {
+      "dotenv": {
+        "path": ".env",
+        "logging": false,
+        "required": {
+          "env": [
+            "DB_HOST",
+            "DB_PORT",
+            "DB_USER",
+            "DB_PASSWORD",
+            "DB_NAME"
+          ]
+        }
+      },
       "esbuild": {
         "bundle": true,
         "minify": false,
@@ -231,6 +271,7 @@
       }
     },
     "plugins": [
+      "serverless-dotenv-plugin",
       "serverless-esbuild"
     ],
     "pluginsData": {},
@@ -239,14 +280,17 @@
         "handler": "src/tickets/infrastructure/bootstrap/lambda-entry.handler",
         "memorySize": 256,
         "timeout": 15,
-        "logRetentionInDays": 1,
+        "logRetentionInDays": 7,
         "events": [
           {
             "schedule": {
               "rate": [
                 "rate(15 minutes)"
               ],
-              "enabled": true
+              "enabled": true,
+              "input": {
+                "action": "handleCron"
+              }
             }
           }
         ],
@@ -257,7 +301,7 @@
         "memory": 256,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "TicketsJobLambdaVersionCpgBywx1tcR1teFas0YZ7AVxLWsmA0sd35N6M6qslPE"
+        "versionLogicalId": "TicketsJobLambdaVersionqC4H4xRWEZy7xczU0cuWqMKJPXKVsU1Tu3D0HsgeBo"
       }
     },
     "configValidationMode": "warn",
@@ -265,14 +309,14 @@
     "initialServerlessConfig": {
       "service": "tickets-cron-job",
       "frameworkVersion": "3",
+      "plugins": {
+        "$ref": "$[\"service\"][\"plugins\"]"
+      },
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
-      },
-      "plugins": {
-        "$ref": "$[\"service\"][\"plugins\"]"
       },
       "package": {
         "individually": true,
@@ -288,7 +332,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/tickets-cron-job/dev/1751335876893-2025-07-01T02:11:16.893Z",
+    "artifactDirectoryName": "serverless/tickets-cron-job/dev/1752532739135-2025-07-14T22:38:59.135Z",
     "artifact": ""
   }
 }
